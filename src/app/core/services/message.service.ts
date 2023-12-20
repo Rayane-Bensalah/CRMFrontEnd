@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { API_BASE_URL } from "../../app.constants";
+import { MessageFetcher } from './fetchers/message.fetcher';
+import { Observable, of } from 'rxjs';
+import { Message } from '../models/message.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 /**
@@ -13,41 +14,31 @@ import { API_BASE_URL } from "../../app.constants";
  * The methods use the API_BASE_URL constant declared in app.constants.ts
  */
 export class MessageService {
+  constructor(private http: MessageFetcher) {}
 
-  // Relative URL for the messages API endpoint
-  MESSAGE_BASE_URL = "messages";
+  private messages: Message[] = [];
 
-  // Constructor to inject the HttpClient service
-  constructor(private http: HttpClient) {}
-
-  // Method to retrieve all messages from the server
-  // Returns an observable of the HTTP response containing message data
-  getMessages() {
-    return this.http.get(API_BASE_URL + this.MESSAGE_BASE_URL);
+  fetchMessage(): Observable<Message[]> {
+    return this.http.getMessages();
   }
 
-  // Method to retrieve a specific message by its ID from the server
-  // Takes an ID parameter and returns an observable of the HTTP response containing message data
-  getMessageById(id: number) {
-    return this.http.get(API_BASE_URL + this.MESSAGE_BASE_URL + '/' + id);
+  // Add message to DB
+  addMessage(newMessage: Message): void {
+    this.messages.push(newMessage);
   }
 
-  // Method to add a new message to the server
-  // Takes a message object parameter and returns an observable of the HTTP response
-  // postMessage(message: Message) {
-  //   return this.http.post(API_BASE_URL + this.MESSAGE_BASE_URL, message);
-  // }
-
-  // Method to delete a message by its ID from the server
-  // Takes an ID parameter and returns an observable of the HTTP response
-  deleteMessage(id: number) {
-    return this.http.delete(API_BASE_URL + this.MESSAGE_BASE_URL + '/' + id);
+  // Update message from DB
+  updateMessage(updatedMessage: Message): void {
+    const index = this.messages.findIndex(
+      (msg) => msg.id === updatedMessage.id,
+    );
+    if (index !== -1) {
+      this.messages[index] = updatedMessage;
+    }
   }
 
-  // Method to update an existing message on the server
-  // Takes a message object parameter and returns an observable of the HTTP response
-  // updateMessage(message: Message) {
-  //   return this.http.put(API_BASE_URL + this.MESSAGE_BASE_URL + '/'+message.id, message);
-  // }
-
+  // Delete message with id input
+  deleteMessage(messageId: number): void {
+    this.messages = this.messages.filter((msg) => msg.id !== messageId);
+  }
 }

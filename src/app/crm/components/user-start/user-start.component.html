@@ -2,6 +2,45 @@
   <div class="form-container border-gradient border-gradient-purple">
     <h1 class="form-title">Welcome !</h1>
     <form [formGroup]="startForm" (ngSubmit)="onSubmit()" class="form">
+      <div
+        *ngIf="
+          startForm.controls['username'].errors &&
+          (startForm.controls['username'].dirty ||
+            startForm.controls['username'].touched)
+        "
+        class="alert alert-danger alert-start"
+      >
+        <div
+          *ngIf="startForm.controls['username'].errors['required']"
+          class="d-flex align-items-center"
+        >
+          <svg
+            class="bi flex-shrink-0 me-2"
+            width="24"
+            height="24"
+            role="img"
+            aria-label="Danger:"
+          >
+            <use xlink:href="bootstrap-icons.svg#exclamation-triangle-fill" />
+          </svg>
+          Username is required
+        </div>
+        <div
+          *ngIf="startForm.controls['username'].errors['pattern']"
+          class="d-flex align-items-center"
+        >
+          <svg
+            class="bi flex-shrink-0 me-2"
+            width="24"
+            height="24"
+            role="img"
+            aria-label="Danger:"
+          >
+            <use xlink:href="bootstrap-icons.svg#exclamation-triangle-fill" />
+          </svg>
+          Username invalid format
+        </div>
+      </div>
       <input type="text" placeholder="Username" formControlName="username" />
       <input type="submit" value="Submit" [disabled]="!startForm.valid" />
     </form>

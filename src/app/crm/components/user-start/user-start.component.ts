@@ -1,12 +1,14 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { UserService } from './../../../core/services/user.service';
 
 @Component({
   selector: 'app-user-start',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './user-start.component.html',
   styleUrl: './user-start.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -18,16 +20,23 @@ export class UserStartComponent implements OnInit {
   change = new EventEmitter();
 
   startForm = this.formBuilder.group({
-    username: ['', Validators.required]
+    username: new FormControl(null, [
+      Validators.required, Validators.pattern("^[A-Za-z0-9]\\w{4,14}$")
+    ])
   });
+
   private username: string = '';
 
-  constructor(private router: Router, private cookieService: CookieService, private formBuilder: FormBuilder) {}
+  constructor(private router: Router, private cookieService: CookieService, private formBuilder: FormBuilder, private userService: UserService) {
+    /*this.userService.fetchUser().subscribe(response => {
+      console.log(response);
+    });*/
+  }
 
   ngOnInit(): void {
     //this.cookieService.set('username', 'David');
-    this.cookieService.delete('username')
-    this.username = this.cookieService.get('username');
+    //this.cookieService.delete('username')
+    //this.username = this.cookieService.get('username');
   }
 
   private redirectToHome() {

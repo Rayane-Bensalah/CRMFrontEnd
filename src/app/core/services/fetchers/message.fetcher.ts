@@ -1,22 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_BASE_URL } from "../../../app.constants";
-import { Message } from "../../models/message.model";
+import { Message } from '../../models/message.model';
+import { API_BASE_URL } from '../../../app.constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
-/**
- * Service class for handling message-related CRUD operations.
- * This service communicates with the api to perform operations such as
- * retrieving messages, retrieving a specific message by ID,creating, updating and deleting messages
- * The methods use the API_BASE_URL constant declared in app.constants.ts
- */
 export class MessageFetcher {
-
   // Relative URL for the messages API endpoint
-  MESSAGE_BASE_URL = "messages";
+  MESSAGE_BASE_URL = 'messages';
 
   // Constructor to inject the HttpClient service
   constructor(private http: HttpClient) {}
@@ -30,7 +22,9 @@ export class MessageFetcher {
   // Method to retrieve a specific message by its ID from the server
   // Takes an ID parameter and returns an observable of the HTTP response containing message data
   getMessageById(id: number) {
-    return this.http.get<Message>(API_BASE_URL + this.MESSAGE_BASE_URL + '/' + id);
+    return this.http.get<Message>(
+      API_BASE_URL + this.MESSAGE_BASE_URL + '/' + id,
+    );
   }
 
   // Method to add a new message to the server
@@ -48,7 +42,9 @@ export class MessageFetcher {
   // Method to update an existing message on the server
   // Takes a message object parameter and returns an observable of the HTTP response
   updateMessage(message: Message) {
-    return this.http.put(API_BASE_URL + this.MESSAGE_BASE_URL + '/'+message.id, message);
+    return this.http.put(
+      API_BASE_URL + this.MESSAGE_BASE_URL + '/' + message.id,
+      message,
+    );
   }
-
 }

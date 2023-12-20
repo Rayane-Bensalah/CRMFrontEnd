@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">Create Channel</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form>
+    <input
+      [(ngModel)]="name"
+      name="name"
+      type="text"
+      placeholder="Channel name"
+    />
+    <button type="button" class="btn btn-outline-primary" (click)="saveAndClose()" >Save</button>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-danger" (click)="activeModal.close('Close click')">Close</button>
+</div>

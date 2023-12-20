@@ -1,53 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { API_BASE_URL } from "../../app.constants";
+import { Channel } from "../models/channel.model";
+import { ChannelFetcher } from "./fetchers/channel.fetcher";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 
 /**
- * Service class for handling channel-related operations.
- * This service communicates with the api to perform operations such as
- * retrieving channels, retrieving a specific channel by ID,creating, updating and deleting channels
- * The methods use the API_BASE_URL constant declared in app.constants.ts
+ * Service class for handling channel-related operations using the ChannelFetcher service.
  */
 export class ChannelService {
 
-  // Relative URL for the channels API endpoint
-  CHANNEL_BASE_URL = "channels";
+  // Constructor with ChannelFetcher
+  constructor(private http:ChannelFetcher) {}
 
-  // Constructor to inject the HttpClient service
-  constructor(private http: HttpClient) {}
+  private channels : Channel[] = [];
 
-  // Method to retrieve all channels from the server
-  // Returns an observable of the HTTP response containing channel data
-  getChannels() {
-    return this.http.get(API_BASE_URL + this.CHANNEL_BASE_URL);
+  fetchAllChannels(): Observable<Channel[]> {
+    return this.http.getChannels();
   }
 
-  // Method to retrieve a specific channel by its ID from the server
-  // Takes an ID parameter and returns an observable of the HTTP response containing channel data
-  getChannelById(id: number) {
-    return this.http.get(API_BASE_URL + this.CHANNEL_BASE_URL + '/' + id);
+  fetchChannelByID(id: number): Observable<Channel> {
+    return this.http.getChannelById(id);
   }
 
-  // Method to add a new channel to the server
-  // Takes a Channel object parameter and returns an observable of the HTTP response
-  // postChannel(channel: Channel) {
-  //   return this.http.post(API_BASE_URL + this.CHANNEL_BASE_URL, channel);
-  // }
+  postChannel(channel: Channel) {
+    return this.http.postChannel(channel);
+  }
 
-  // Method to delete a channel by its ID from the server
-  // Takes an ID parameter and returns an observable of the HTTP response
   deleteChannel(id: number) {
-    return this.http.delete(API_BASE_URL + this.CHANNEL_BASE_URL + '/' + id);
+    return this.http.deleteChannel(id);
   }
 
-  // Method to update an existing channel on the server
-  // Takes a Channel object parameter and returns an observable of the HTTP response
-  // updateChannel(channel: Channel) {
-  //   return this.http.put(API_BASE_URL + this.CHANNEL_BASE_URL + '/'+channel.id, channel);
-  // }
+  updateChannel(channel: Channel) {
+    return this.http.updateChannel(channel);
+  }
 
 }

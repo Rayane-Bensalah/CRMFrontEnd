@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { API_BASE_URL } from "../../app.constants";
+import {Channel} from "../models/channel.model";
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +35,9 @@ export class ChannelService {
 
   // Method to add a new channel to the server
   // Takes a Channel object parameter and returns an observable of the HTTP response
-  // postChannel(channel: Channel) {
-  //   return this.http.post(API_BASE_URL + this.CHANNEL_BASE_URL, channel);
-  // }
+  postChannel(channel: Channel) {
+     return this.http.post(API_BASE_URL + this.CHANNEL_BASE_URL, channel);
+   }
 
   // Method to delete a channel by its ID from the server
   // Takes an ID parameter and returns an observable of the HTTP response
@@ -46,8 +47,8 @@ export class ChannelService {
 
   // Method to update an existing channel on the server
   // Takes a Channel object parameter and returns an observable of the HTTP response
-  // updateChannel(channel: Channel) {
-  //   return this.http.put(API_BASE_URL + this.CHANNEL_BASE_URL + '/'+channel.id, channel);
-  // }
+  updateChannel(channel: Channel) {
+    return this.http.put(API_BASE_URL + this.CHANNEL_BASE_URL + '/'+channel.id, channel);
+  }
 
 }

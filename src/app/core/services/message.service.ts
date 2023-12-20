@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { API_BASE_URL } from "../../app.constants";
+import {Message} from "../models/message.model";
 
 @Injectable({
   providedIn: 'root'
@@ -34,9 +35,9 @@ export class MessageService {
 
   // Method to add a new message to the server
   // Takes a message object parameter and returns an observable of the HTTP response
-  // postMessage(message: Message) {
-  //   return this.http.post(API_BASE_URL + this.MESSAGE_BASE_URL, message);
-  // }
+  postMessage(message: Message) {
+    return this.http.post(API_BASE_URL + this.MESSAGE_BASE_URL, message);
+  }
 
   // Method to delete a message by its ID from the server
   // Takes an ID parameter and returns an observable of the HTTP response
@@ -46,8 +47,8 @@ export class MessageService {
 
   // Method to update an existing message on the server
   // Takes a message object parameter and returns an observable of the HTTP response
-  // updateMessage(message: Message) {
-  //   return this.http.put(API_BASE_URL + this.MESSAGE_BASE_URL + '/'+message.id, message);
-  // }
+  updateMessage(message: Message) {
+    return this.http.put(API_BASE_URL + this.MESSAGE_BASE_URL + '/'+message.id, message);
+  }
 
 }

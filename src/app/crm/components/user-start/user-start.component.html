@@ -1,0 +1,9 @@
+<div class="container d-flex align-items-center justify-content-center">
+  <div class="form-container border-gradient border-gradient-purple">
+    <h1 class="form-title">Welcome !</h1>
+    <form [formGroup]="startForm" (ngSubmit)="onSubmit()" class="form">
+      <input type="text" placeholder="Username" formControlName="username" />
+      <input type="submit" value="Submit" [disabled]="!startForm.valid" />
+    </form>
+  </div>
+</div>

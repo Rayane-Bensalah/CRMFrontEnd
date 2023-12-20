@@ -24,7 +24,7 @@ export class ChannelFetcher {
   // Method to retrieve all channels from the server
   // Returns an observable of the HTTP response containing channel data
   getChannels() {
-    return this.http.get(API_BASE_URL + this.CHANNEL_BASE_URL);
+    return this.http.get<Channel[]>(API_BASE_URL + this.CHANNEL_BASE_URL);
   }
 
   // Method to retrieve a specific channel by its ID from the server

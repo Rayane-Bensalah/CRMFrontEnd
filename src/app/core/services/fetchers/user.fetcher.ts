@@ -24,7 +24,7 @@ export class UserFetcher {
   // Method to retrieve all users from the server
   // Returns an observable of the HTTP response containing user data
   getUsers() {
-    return this.http.get(API_BASE_URL + this.USER_BASE_URL);
+    return this.http.get<User[]>(API_BASE_URL + this.USER_BASE_URL);
   }
 
   // Method to retrieve a specific user by its ID from the server

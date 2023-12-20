@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Message } from '../../models/message.model';
 import { API_BASE_URL } from '../../../app.constants';
+import { MessageSend } from '../../models/messageSend.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class MessageFetcher {
 
   // Method to add a new message to the server
   // Takes a message object parameter and returns an observable of the HTTP response
-  postMessage(message: Message) {
+  postMessage(message: MessageSend) {
     return this.http.post(API_BASE_URL + this.MESSAGE_BASE_URL, message);
   }
 

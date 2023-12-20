@@ -1,7 +1,4 @@
-<div class="card shadow">
-  <div class="card-header card-header-tab text-bg-dark">
-    <div class="card-header-title"># Général</div>
-  </div>
-  <div class="lg-barre"></div>
-  <div class="card-body cm-container"></div>
-</div>
+<form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+  <textarea formControlName="content"></textarea>
+  <button type="submit">Send</button>
+</form>

@@ -24,7 +24,7 @@ export class MessageFetcher {
   // Method to retrieve all messages from the server
   // Returns an observable of the HTTP response containing message data
   getMessages() {
-    return this.http.get(API_BASE_URL + this.MESSAGE_BASE_URL);
+    return this.http.get<Message[]>(API_BASE_URL + this.MESSAGE_BASE_URL);
   }
 
   // Method to retrieve a specific message by its ID from the server

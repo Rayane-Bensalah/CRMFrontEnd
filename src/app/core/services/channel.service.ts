@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Channel } from "../models/channel.model";
 import { ChannelFetcher } from "./fetchers/channel.fetcher";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,11 @@ export class ChannelService {
 
   private channels : Channel[] = [];
 
-  getChannelByID(id: number) {
+  fetchAllChannels(): Observable<Channel[]> {
+    return this.http.getChannels();
+  }
+
+  fetchChannelByID(id: number): Observable<Channel> {
     return this.http.getChannelById(id);
   }
 

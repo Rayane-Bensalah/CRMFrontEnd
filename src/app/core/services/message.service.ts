@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MessageFetcher } from './fetchers/message.fetcher';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Message } from '../models/message.model';
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ import { Message } from '../models/message.model';
  * The methods use the API_BASE_URL constant declared in app.constants.ts
  */
 export class MessageService {
-  constructor(private http: MessageFetcher) {}
+  constructor(private http: MessageFetcher, private cookie: CookieService) {}
 
   private messages: Message[] = [];
 
@@ -40,5 +41,10 @@ export class MessageService {
   // Delete message with id input
   deleteMessage(messageId: number): void {
     this.messages = this.messages.filter((msg) => msg.id !== messageId);
+  }
+
+  // get the Channel ID of the channel in which we send our message
+  getChannelId(): number {
+    return parseInt(this.cookie.get('channel_id'));
   }
 }

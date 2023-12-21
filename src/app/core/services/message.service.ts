@@ -3,8 +3,6 @@ import { MessageFetcher } from './fetchers/message.fetcher';
 import { Observable, of } from 'rxjs';
 import { Message } from '../models/message.model';
 import { CookieService } from 'ngx-cookie-service';
-import { MessageSend } from '../models/messageSend.model';
-import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +27,7 @@ export class MessageService {
   }
 
   // Add message to DB
-  addMessage(newMessage: MessageSend): Observable<any> {
+  addMessage(newMessage: Message): Observable<any> {
     return this.http.postMessage(newMessage);
   }
 

@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Channel } from "../models/channel.model";
-import { ChannelFetcher } from "./fetchers/channel.fetcher";
-import {Observable} from "rxjs";
+import { Channel } from '../models/channel.model';
+import { ChannelFetcher } from './fetchers/channel.fetcher';
+import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 /**
  * Service class for handling channel-related operations using the ChannelFetcher service.
  */
 export class ChannelService {
-
   // Constructor with ChannelFetcher
-  constructor(private http:ChannelFetcher) {}
+  constructor(
+    private http: ChannelFetcher,
+    private cookie: CookieService,
+  ) {}
 
-  private channels : Channel[] = [];
+  private channels: Channel[] = [];
 
   fetchAllChannels(): Observable<Channel[]> {
     return this.http.getChannels();
@@ -37,4 +40,7 @@ export class ChannelService {
     return this.http.updateChannel(channel);
   }
 
+  getChannelId(): number {
+    return parseInt(this.cookie.get('channel_id'));
+  }
 }

@@ -7,8 +7,9 @@ import {
 } from '@angular/forms';
 import { MessageService } from '../../../core/services/message.service';
 import { UserService } from '../../../core/services/user.service';
-import { MessageSend } from '../../../core/models/messageSend.model';
 import { CommonModule } from '@angular/common';
+import { Message } from '../../../core/models/message.model';
+import { ChannelService } from '../../../core/services/channel.service';
 
 @Component({
   selector: 'app-message-list',
@@ -21,28 +22,33 @@ export class MessageListComponent {
   messageForm: FormGroup;
 
   sentMessages: String[] = [];
-
   constructor(
     private fb: FormBuilder,
     public messageService: MessageService,
     private userService: UserService,
+    private channelService: ChannelService,
   ) {
     this.messageForm = this.fb.group({
       content: ['', Validators.required],
     });
   }
 
+  messageContent: String = '';
+
   get content() {
     return this.messageForm.get('content');
   }
 
   sendMessage(): void {
-    console.log('Message Success ! ');
+    const contentValue = this.messageForm.value.content;
+    const contentAsString: string = String(contentValue);
     if (this.messageForm.valid) {
-      const newMessage: MessageSend = {
+      const newMessage: Message = {
+        id: 1,
         user_id: this.userService.getUserId(),
-        channel_id: 0,
-        content: this.messageForm.value.content,
+        channel_id: this.channelService.getChannelId(),
+        content: contentAsString,
+        send_date: new Date(),
       };
 
       this.messageService

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MessageFetcher } from './fetchers/message.fetcher';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Message } from '../models/message.model';
 import { CookieService } from "ngx-cookie-service";
 

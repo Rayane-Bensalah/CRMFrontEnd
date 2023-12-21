@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MessageFetcher } from './fetchers/message.fetcher';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Message } from '../models/message.model';
+import { CookieService } from 'ngx-cookie-service';
+import { newMessage } from '../models/newMessage.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +25,8 @@ export class MessageService {
   }
 
   // Add message to DB
-  addMessage(newMessage: Message): void {
-    this.messages.push(newMessage);
+  addMessage(newMessage: newMessage): Observable<any> {
+    return this.http.postMessage(newMessage);
   }
 
   // Update message from DB
@@ -33,12 +35,12 @@ export class MessageService {
       (msg) => msg.id === updatedMessage.id,
     );
     if (index !== -1) {
-      this.messages[index] = updatedMessage;
+      this.http.updateMessage(updatedMessage);
     }
   }
 
   // Delete message with id input
   deleteMessage(messageId: number): void {
-    this.messages = this.messages.filter((msg) => msg.id !== messageId);
+    this.http.deleteMessage(messageId);
   }
 }

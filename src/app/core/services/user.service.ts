@@ -4,6 +4,7 @@ import { API_BASE_URL } from '../../app.constants';
 import { UserFetcher } from './fetchers/user.fetcher';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,10 @@ import { Observable } from 'rxjs';
  * The methods use the API_BASE_URL constant declared in app.constants.ts
  */
 export class UserService {
-  constructor(private http: UserFetcher) {}
+  constructor(
+    private http: UserFetcher,
+    private cookie: CookieService,
+  ) {}
 
   private users: User[] = [];
 
@@ -38,5 +42,9 @@ export class UserService {
   // Delete user
   deleteUser(userId: number): void {
     this.users = this.users.filter((usr) => usr.id != userId);
+  }
+
+  getUserId(): number {
+    return parseInt(this.cookie.get('user_id'));
   }
 }

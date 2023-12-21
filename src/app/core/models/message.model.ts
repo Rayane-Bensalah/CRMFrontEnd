@@ -1,6 +1,6 @@
 export interface Message {
   id: number;
-  user: number;
+  userId: number;
   channel: number;
   content: String;
   sendDate: Date;

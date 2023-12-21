@@ -39,8 +39,4 @@ export class ChannelService {
   updateChannel(channel: Channel) {
     return this.http.updateChannel(channel);
   }
-
-  getChannelId(): number {
-    return parseInt(this.cookie.get('channel_id'));
-  }
 }

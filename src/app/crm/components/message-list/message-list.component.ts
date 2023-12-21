@@ -8,8 +8,8 @@ import {
 import { MessageService } from '../../../core/services/message.service';
 import { UserService } from '../../../core/services/user.service';
 import { CommonModule } from '@angular/common';
-import { Message } from '../../../core/models/message.model';
 import { ChannelService } from '../../../core/services/channel.service';
+import { newMessage } from '../../../core/models/newMessage.model';
 
 @Component({
   selector: 'app-message-list',
@@ -42,15 +42,14 @@ export class MessageListComponent {
   sendMessage(): void {
     const contentValue = this.messageForm.value.content;
     const contentAsString: string = String(contentValue);
-    const defaultChannelId = 1;
-    const channelValue = this.messageForm.value.channel || defaultChannelId;
+
     if (this.messageForm.valid) {
-      const newMessage: Message = {
-        id: 1,
-        user: this.userService.getUserId(),
-        channel: channelValue,
+      const newMessage: newMessage = {
+        // userId: this.userService.getUserId(),
+        // channelId: this.channelService.getChannelId(),
         content: contentAsString,
-        sendDate: new Date(),
+        userId: 1,
+        channelId: 1,
       };
 
       this.messageService

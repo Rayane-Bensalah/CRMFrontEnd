@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ChannelListComponent } from '../channel-list/channel-list.component';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
@@ -13,4 +15,9 @@ import { MessageListComponent } from '../message-list/message-list.component';
 })
 export class HomePageComponent {
 
+  constructor(private router: Router, private cookieService: CookieService) {
+    /*if (this.cookieService.get('username') == '') {
+      this.router.navigate(['start']);
+    }*/
+  }
 }

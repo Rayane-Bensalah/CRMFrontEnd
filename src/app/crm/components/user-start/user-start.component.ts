@@ -21,7 +21,7 @@ export class UserStartComponent implements OnInit {
 
   startForm = this.formBuilder.group({
     username: new FormControl(null, [
-      Validators.required, Validators.pattern("^[A-Za-z0-9]\\w{4,14}$")
+      Validators.required, Validators.pattern("^[A-Za-z0-9]\\w{3,14}$")
     ])
   });
 

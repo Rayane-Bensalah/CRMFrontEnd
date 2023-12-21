@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_BASE_URL } from "../../../app.constants";
 import { Channel } from "../../models/channel.model";
+import {lastValueFrom} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +34,19 @@ export class ChannelFetcher {
     return this.http.get<Channel>(API_BASE_URL + this.CHANNEL_BASE_URL + '/' + id);
   }
 
-  // Method to add a new channel to the server
-  // Takes a Channel object parameter and returns an observable of the HTTP response
-  postChannel(channel: Channel) {
-    return this.http.post(API_BASE_URL + this.CHANNEL_BASE_URL, channel);
+  /**
+   * Sends a POST request to add a channel using the provided Channel object.
+   *
+   * @param channel - The Channel object to be added.
+   * @returns A Promise that resolves when the HTTP request is completed.
+   */
+  postChannel(channel: Channel): Promise<any> {
+    return lastValueFrom(this.http.post(API_BASE_URL + this.CHANNEL_BASE_URL, channel));
   }
+
+  // postChannel(channel: Channel) {
+  //   return this.http.post(API_BASE_URL + this.CHANNEL_BASE_URL, channel);
+  // }
 
   // Method to delete a channel by its ID from the server
   // Takes an ID parameter and returns an observable of the HTTP response

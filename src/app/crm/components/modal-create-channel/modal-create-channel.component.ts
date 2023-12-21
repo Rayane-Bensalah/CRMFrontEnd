@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChannelService } from "../../../core/services/channel.service";
 import { FormsModule } from "@angular/forms";
-import {ChannelFetcher} from "../../../core/services/fetchers/channel.fetcher";
 import {Channel} from "../../../core/models/channel.model";
 
 @Component({
@@ -15,7 +14,7 @@ import {Channel} from "../../../core/models/channel.model";
 })
 export class ModalCreateChannelComponent {
 
-  constructor(private channel: ChannelService, private http:ChannelFetcher) {}
+  constructor(private channel: ChannelService) {}
 
   // Import NgbActiveModal, a service created by library Ng-Bootstrap to use bootstrap component Modal
   activeModal = inject(NgbActiveModal);
@@ -30,16 +29,50 @@ export class ModalCreateChannelComponent {
     messages: []
   };
 
-  // Use the previously created inputChannel, replace name with name provided by user in form, then save it using ChannelService method postChannel()
-  addChannel() {
-    this.inputChannel.name = this.name;
-    this.channel.postChannel(this.inputChannel).subscribe((rep) => console.log(rep));
+  /**
+   * Asynchronously adds a channel by updating its name and making an HTTP POST request.
+   * Logs a success message if the channel is added successfully.
+   *
+   * @throws Error - Throws an error if there is an issue adding the channel.
+   */
+  async addChannel() {
+    try {
+      this.inputChannel.name = this.name;
+      await this.channel.postChannel(this.inputChannel);
+      console.log('Channel added successfully');
+    } catch (error) {
+      console.error('Error adding channel:', error);
+      throw error; // Propager l'erreur pour que saveAndClose puisse la gérer
+    }
   }
 
+  // addChannel() {
+  //   this.inputChannel.name = this.name;
+  //   this.channel.postChannel(this.inputChannel).subscribe((rep) => console.log(rep));
+  // }
   // addChannel then close modal in one method, so it can be used by the Save button of the Modal
-  saveAndClose(){
-    this.addChannel();
-    this.activeModal.close();
+
+  /**
+   * Asynchronously saves and closes the active modal after adding a channel.
+   * Reloading the window after successful completion.
+   *
+   * @throws Error - Throws an error if there is an issue adding the channel or closing the modal.
+   */
+  async saveAndClose() {
+    try {
+      await this.addChannel();
+      this.activeModal.close();
+      window.location.reload();
+    } catch (error) {
+      // Gérer les erreurs ici, si nécessaire
+      console.error(error);
+    }
   }
+
+  // saveAndClose(){
+  //   this.addChannel();
+  //   this.activeModal.close();
+  //   window.location.reload();
+  // }
 
 }

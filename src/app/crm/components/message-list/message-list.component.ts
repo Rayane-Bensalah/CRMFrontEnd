@@ -42,13 +42,15 @@ export class MessageListComponent {
   sendMessage(): void {
     const contentValue = this.messageForm.value.content;
     const contentAsString: string = String(contentValue);
+    const defaultChannelId = 1;
+    const channelValue = this.messageForm.value.channel || defaultChannelId;
     if (this.messageForm.valid) {
       const newMessage: Message = {
         id: 1,
-        user_id: this.userService.getUserId(),
-        channel_id: this.channelService.getChannelId(),
+        user: this.userService.getUserId(),
+        channel: channelValue,
         content: contentAsString,
-        send_date: new Date(),
+        sendDate: new Date(),
       };
 
       this.messageService

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MessageFetcher } from './fetchers/message.fetcher';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Message } from '../models/message.model';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -15,10 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
  * The methods use the API_BASE_URL constant declared in app.constants.ts
  */
 export class MessageService {
-  constructor(
-    private http: MessageFetcher,
-    private cookie: CookieService,
-  ) {}
+  constructor(private http: MessageFetcher) {}
 
   private messages: Message[] = [];
 

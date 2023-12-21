@@ -1,7 +1,7 @@
 export interface Message {
   id: number;
-  user_id: number;
-  channel_id: number;
+  userId: number;
+  channel: number;
   content: String;
-  send_date: Date;
+  sendDate: Date;
 }

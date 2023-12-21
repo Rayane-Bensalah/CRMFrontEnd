@@ -20,6 +20,8 @@ import { CommonModule } from '@angular/common';
 export class MessageListComponent {
   messageForm: FormGroup;
 
+  sentMessages: String[] = [];
+
   constructor(
     private fb: FormBuilder,
     public messageService: MessageService,
@@ -47,6 +49,7 @@ export class MessageListComponent {
         .addMessage(newMessage)
         .subscribe((data) => console.log(data));
 
+      this.sentMessages.push(newMessage.content);
       this.messageForm.reset();
     }
   }

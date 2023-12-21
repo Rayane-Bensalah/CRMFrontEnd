@@ -1,3 +1,9 @@
+<div class="chat-container">
+  <div *ngFor="let message of sentMessages" class="message">
+    {{ message }}
+  </div>
+</div>
+
 <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
   <textarea formControlName="content"></textarea>
   <button type="submit">Send</button>

@@ -35,6 +35,7 @@ export class MessageListComponent {
   }
 
   sendMessage(): void {
+    console.log('Message Success ! ');
     if (this.messageForm.valid) {
       const newMessage: MessageSend = {
         user_id: this.userService.getUserId(),
@@ -45,6 +46,7 @@ export class MessageListComponent {
       this.messageService
         .addMessage(newMessage)
         .subscribe((data) => console.log(data));
+
       this.messageForm.reset();
     }
   }

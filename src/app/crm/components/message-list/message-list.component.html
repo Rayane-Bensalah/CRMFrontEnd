@@ -1,11 +1,8 @@
-<link
-  rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
 
 <div class="chat-container">
-  <div *ngFor="let message of sentMessages" class="message alert alert-info">
-    {{ message }}
+  <div *ngFor="let message of messages" class="message alert alert-info">
+    {{ message.content }}
   </div>
 </div>
 

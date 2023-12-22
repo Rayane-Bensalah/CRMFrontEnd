@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Channel} from "../../../core/models/channel.model";
 import {ChannelService} from "../../../core/services/channel.service";
 import {NgFor} from "@angular/common";
+import {Message} from "../../../core/models/message.model";
 
 @Component({
   selector: 'app-channel-detail',
@@ -17,6 +18,9 @@ export class ChannelDetailComponent {
   @Input()
   channel!: Channel;
 
+  @Output()
+  channelClicked = new EventEmitter<number>();
+
   listChannels : Channel[] = [];
 
   constructor(public channelService : ChannelService) {
@@ -24,5 +28,11 @@ export class ChannelDetailComponent {
       this.listChannels = response;
     })
   }
+
+  switchChannel(id: number): void {
+    this.channelClicked.emit(id);
+  }
+
+
 
 }

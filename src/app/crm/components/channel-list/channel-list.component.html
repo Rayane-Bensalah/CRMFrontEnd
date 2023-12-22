@@ -1,3 +1,16 @@
+<!--<div class="card shadow">-->
+<!--  <div class="card-header card-header-tab text-bg-dark">-->
+<!--    <div class="card-header-title">Channels</div>-->
+<!--    <app-new-channel></app-new-channel>-->
+<!--  </div>-->
+<!--  <div class="lg-barre"></div>-->
+<!--  <div class="card-body cm-container">-->
+<!--    <div class="d-flex">-->
+<!--      <app-channel-detail></app-channel-detail>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
 <div class="card shadow">
   <div class="card-header card-header-tab text-bg-dark">
     <div class="card-header-title">Channels</div>
@@ -6,7 +19,8 @@
   <div class="lg-barre"></div>
   <div class="card-body cm-container">
     <div class="d-flex">
-      <app-channel-detail></app-channel-detail>
+      <!-- Bind channelId to app-message-list -->
+      <app-channel-detail (channelClicked)="onChannelClicked($event)"></app-channel-detail>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { ModalCreateChannelComponent } from "../modal-create-channel/modal-create-channel.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ChannelService } from "../../../core/services/channel.service";
+import { ModalCreateChannelComponent } from "../modal-create-channel/modal-create-channel.component";
 
 @Component({
   selector: 'app-new-channel',
@@ -18,7 +18,9 @@ export class NewChannelComponent {
   private modalService = inject(NgbModal);
 
   open() {
-    const modalRef = this.modalService.open(ModalCreateChannelComponent);
+    const modalRef = this.modalService.open(ModalCreateChannelComponent, {
+      centered: true
+    });
   }
 
 }

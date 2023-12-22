@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../../models/user.model';
+import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../../../app.constants';
+import { NewUser } from '../../models/newUser.model';
+import { User } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +29,8 @@ export class UserFetcher {
 
   // Method to add a new user to the server
   // Takes a user object parameter and returns an observable of the HTTP response
-  postUser(user: User) {
-    return this.http.post(API_BASE_URL + this.USER_BASE_URL, user);
+  postUser(newUser: NewUser): Observable<User> {
+    return this.http.post<User>(API_BASE_URL + this.USER_BASE_URL, newUser);
   }
 
   // Method to delete a user by its ID from the server

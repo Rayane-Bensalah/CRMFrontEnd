@@ -81,3 +81,45 @@
 .message-form button:hover {
   background-color: #677bc4;
 }
+
+.input-change-container {
+  display: flex;
+
+  .button {
+    border-left: none;
+    padding: 0.5rem 1.5rem 0.25rem;
+    overflow: initial;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+
+/* ** BUTTON ** */
+.button {
+  /* buttons override */
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  /* custom */
+  display: inline-block;
+  overflow: hidden;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  border: 1px solid #93D9D8;
+  background: #93D9D8;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background: #11454F;
+    border-color: #11454F;
+  }
+}

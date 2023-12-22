@@ -37,10 +37,24 @@
 .fixed-container {
   position: fixed;
   width: fit-content; /* Set the width as per your design */
-  height: 600px; /* Set the height as per your design */
   overflow-y: auto; /* Add scroll if content overflows vertically */
+
   border: 1px solid #ccc; /* Add border or styling as needed */
   padding: 15px; /* Add padding as needed */
   background-color: #f8f9fa; /* Set background color as needed */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box-shadow as needed */
+}
+
+.card-body.cm-container {
+  /* Copy the relevant styles from your existing stylesheet */
+  padding: 20px;
+  margin: 10px;
+  /* Add any other styles as needed */
+}
+
+.chat-container {
+  min-height: 600px;
+  max-height: 600px;
+  overflow: auto;
+  /* Add other styles as needed to match the styling of your card-body */
 }

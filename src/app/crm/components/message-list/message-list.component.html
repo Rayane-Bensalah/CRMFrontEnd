@@ -3,26 +3,15 @@
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 />
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="fixed-container">
-        <div class="chat-container">
-          <div
-            *ngFor="let message of sentMessages"
-            class="message alert alert-primary"
-          >
-            {{ message }}
-          </div>
-        </div>
-
-        <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="mt-3">
-          <div class="form-group">
-            <textarea formControlName="content" class="form-control"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send</button>
-        </form>
-      </div>
-    </div>
+<div class="chat-container">
+  <div *ngFor="let message of sentMessages" class="message alert alert-info">
+    {{ message }}
   </div>
 </div>
+
+<form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+  <div class="form-group">
+    <textarea class="form-control" formControlName="content"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>

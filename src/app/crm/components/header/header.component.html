@@ -13,6 +13,25 @@
           </svg>
           CRM Project
         </a>
+        <div class="row">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                id="dropdown"
+                ngbDropdownToggle
+              >
+                <svg class="bi me-2 f-logo" width="32" height="32">
+                  <use xlink:href="bootstrap-icons.svg#person" />
+                </svg>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdown">
+                <button ngbDropdownItem (click)="logout()">Logout</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

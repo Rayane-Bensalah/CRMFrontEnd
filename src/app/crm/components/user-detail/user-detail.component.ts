@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {User} from "../../../core/models/user.model";
-import {UserService} from "../../../core/services/user.service";
-import {NgFor} from "@angular/common";
+import { NgFor } from "@angular/common";
+import { Component, Input } from '@angular/core';
+import { User } from "../../../core/models/user.model";
+import { UserService } from "../../../core/services/user.service";
 
 @Component({
   selector: 'app-user-detail',
@@ -22,7 +22,6 @@ export class UserDetailComponent {
   constructor(public userService : UserService) {
     this.userService.fetchUser().subscribe(response => {
       this.listUsers = response;
-      console.log(response);
     })
   }
 

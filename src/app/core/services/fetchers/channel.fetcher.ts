@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { API_BASE_URL } from "../../../app.constants";
 import { Channel } from "../../models/channel.model";
 import {lastValueFrom} from "rxjs";
+import {Message} from "../../models/message.model";
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,12 @@ export class ChannelFetcher {
   // Takes a Channel object parameter and returns an observable of the HTTP response
   updateChannel(channel: Channel) {
     return this.http.put(API_BASE_URL + this.CHANNEL_BASE_URL + '/'+channel.id, channel);
+  }
+
+  // Method to retrieve all messages with specific channelId by its ID from the server
+  // Takes an ID parameter and returns an array of Messages
+  getChannelMessages(id: number) {
+    return this.http.get<Message[]>(API_BASE_URL + this.CHANNEL_BASE_URL + '/' + id + '/messages');
   }
 
 }

@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { Channel } from '../models/channel.model';
 import { ChannelFetcher } from './fetchers/channel.fetcher';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import {Message} from "../models/message.model";
 
 @Injectable({
   providedIn: 'root',
@@ -39,4 +40,12 @@ export class ChannelService {
   updateChannel(channel: Channel) {
     return this.http.updateChannel(channel);
   }
+
+  // Add an EventEmitter for channelClicked
+  channelClicked = new EventEmitter<number>();
+
+  fetchChannelMessages(id: number): Observable<Message[]> {
+    return this.http.getChannelMessages(id)
+  }
+
 }

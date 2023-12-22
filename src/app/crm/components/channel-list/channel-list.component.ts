@@ -13,6 +13,14 @@ import { NgFor } from "@angular/common";
 })
 export class ChannelListComponent {
 
-  constructor(public channelService : ChannelService) {}
+  selectedChannelId: number = 1; // Set an initial value
 
+  constructor(public channelService: ChannelService) {}
+
+  onChannelClicked(channelId: number): void {
+    // Handle the channel click event here
+    // You may want to update the channelId in your component or perform other actions
+    this.selectedChannelId = channelId;
+    console.log('Channel clicked:', channelId);
+  }
 }

@@ -68,3 +68,10 @@ body {
   background-color: #68c5ca;
   border-color: #68c5ca;
 }
+
+.alert-start {
+  width: 80%;
+  margin: auto;
+  padding: 0.5rem;
+  font-size: 14px;
+}

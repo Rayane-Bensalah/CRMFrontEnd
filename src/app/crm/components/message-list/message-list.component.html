@@ -1,17 +1,25 @@
-<link
-  rel="stylesheet"
-  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-/>
-
-<div class="chat-container">
-  <div *ngFor="let message of sentMessages" class="message alert alert-info">
-    {{ message }}
+<div class="card shadow">
+  <div class="card-header card-header-tab text-bg-dark">
+    <div class="card-header-title">Channels</div>
+  </div>
+  <div class="lg-barre"></div>
+  <div class="card-body cm-container">
+    <div class="chat-container">
+      <div *ngFor="let message of sentMessages" class="message">
+        {{ message }}
+      </div>
+    </div>
+    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+      <div class="input-change-container">
+        <input
+          class="input-text"
+          type="text"
+          id="content"
+          name="content"
+          formControlName="content"
+        />
+        <button type="submit" class="button">Send</button>
+      </div>
+    </form>
   </div>
 </div>
-
-<form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
-  <div class="form-group">
-    <textarea class="form-control" formControlName="content"></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Send</button>
-</form>

@@ -3,6 +3,9 @@ import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@ang
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { COOKIE_USERNAME_STRING, COOKIE_USER_ID_STRING } from '../../../app.constants';
+import { NewUser } from '../../../core/models/newUser.model';
+import { User } from '../../../core/models/user.model';
 import { UserService } from './../../../core/services/user.service';
 
 @Component({
@@ -20,23 +23,24 @@ export class UserStartComponent implements OnInit {
   change = new EventEmitter();
 
   startForm = this.formBuilder.group({
-    username: new FormControl(null, [
-      Validators.required, Validators.pattern("^[A-Za-z0-9]\\w{3,14}$")
+    username: new FormControl('', [
+      Validators.required, Validators.pattern("^[A-Za-z0-9]\\w{3,19}$")
     ])
   });
 
-  private username: string = '';
+  private userName: string = '';
+  private userId: string = '';
 
   constructor(private router: Router, private cookieService: CookieService, private formBuilder: FormBuilder, private userService: UserService) {
-    /*this.userService.fetchUser().subscribe(response => {
-      console.log(response);
-    });*/
   }
 
   ngOnInit(): void {
-    //this.cookieService.set('username', 'David');
-    //this.cookieService.delete('username')
-    //this.username = this.cookieService.get('username');
+    this.userName = this.cookieService.get(COOKIE_USERNAME_STRING);
+    this.userId = this.cookieService.get(COOKIE_USER_ID_STRING);
+
+    if (this.userName != "" && this.userId != "") {
+      this.redirectToHome();
+    }
   }
 
   private redirectToHome() {
@@ -44,8 +48,26 @@ export class UserStartComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.startForm.value);
+    const newUser: NewUser = {
+      userName: String(this.startForm.value.username)
+    };
+
+    this.userService.addUser(newUser).subscribe((response: User) => {
+      if (response) {
+        this.cookieService.set(COOKIE_USERNAME_STRING, response.userName);
+        this.cookieService.set(COOKIE_USER_ID_STRING, String(response.id));
+        this.redirectToHome();
+      }
+    });
   }
 
+  userNameRequired() {
+    const username = this.startForm.controls.username;
+    return username.touched && username.hasError('required');
+  }
+
+  userNameCheckFormat() {
+    const username = this.startForm.controls.username;
+    return username.touched && username.hasError('pattern');
+  }
 }

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { API_BASE_URL } from '../../app.constants';
-import { UserFetcher } from './fetchers/user.fetcher';
-import { User } from '../models/user.model';
-import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
+import { NewUser } from '../models/newUser.model';
+import { User } from '../models/user.model';
+import { UserFetcher } from './fetchers/user.fetcher';
 
 @Injectable({
   providedIn: 'root',
@@ -29,8 +28,8 @@ export class UserService {
   }
 
   //Add user
-  addUser(newUser: User): void {
-    this.users.push(newUser);
+  addUser(newUser: NewUser): Observable<User> {
+    return this.http.postUser(newUser);
   }
 
   // Update user

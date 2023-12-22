@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ChannelService } from "../../../core/services/channel.service";
 import { FormsModule } from "@angular/forms";
-import {Channel} from "../../../core/models/channel.model";
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Channel } from "../../../core/models/channel.model";
+import { ChannelService } from "../../../core/services/channel.service";
 
 @Component({
   selector: 'modal-channel',

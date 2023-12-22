@@ -38,11 +38,32 @@
           >
             <use xlink:href="bootstrap-icons.svg#exclamation-triangle-fill" />
           </svg>
-          Username invalid format
+          Check Username format
+          <br />
+          (4 to 120 characters, only allow Letters, numbers including _
+          (underscore))
+        </div>
+        <div
+          *ngIf="startForm.controls['username'].errors['exists']"
+          class="d-flex align-items-center"
+        >
+          <svg
+            class="bi flex-shrink-0 me-2"
+            width="24"
+            height="24"
+            role="img"
+            aria-label="Danger:"
+          >
+            <use xlink:href="bootstrap-icons.svg#exclamation-triangle-fill" />
+          </svg>
+          {{ startForm.controls["username"].errors["message"] }}
+          <br />
+          (4 to 120 characters, only allow Letters, numbers including _
+          (underscore))
         </div>
       </div>
       <input type="text" placeholder="Username" formControlName="username" />
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" [disabled]="!startForm.valid" />
     </form>
   </div>
 </div>

@@ -1,10 +1,17 @@
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+/>
+
 <div class="chat-container">
-  <div *ngFor="let message of sentMessages" class="message">
+  <div *ngFor="let message of sentMessages" class="message alert alert-info">
     {{ message }}
   </div>
 </div>
 
 <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
-  <textarea formControlName="content"></textarea>
-  <button type="submit">Send</button>
+  <div class="form-group">
+    <textarea class="form-control" formControlName="content"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
 </form>

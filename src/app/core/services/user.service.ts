@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { API_BASE_URL } from "../../app.constants";
+import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
+import { NewUser } from '../models/newUser.model';
+import { User } from '../models/user.model';
+import { UserFetcher } from './fetchers/user.fetcher';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 /**
@@ -13,42 +16,34 @@ import { API_BASE_URL } from "../../app.constants";
  * The methods use the API_BASE_URL constant declared in app.constants.ts
  */
 export class UserService {
+  constructor(
+    private http: UserFetcher,
+    private cookie: CookieService,
+  ) {}
 
-  // Relative URL for the users API endpoint
-  USER_BASE_URL = "users";
+  private users: User[] = [];
 
-  // Constructor to inject the HttpClient service
-  constructor(private http: HttpClient) {}
-
-  // Method to retrieve all users from the server
-  // Returns an observable of the HTTP response containing user data
-  getUsers() {
-    return this.http.get(API_BASE_URL + this.USER_BASE_URL);
+  fetchUser(): Observable<User[]> {
+    return this.http.getUsers();
   }
 
-  // Method to retrieve a specific user by its ID from the server
-  // Takes an ID parameter and returns an observable of the HTTP response containing user data
-  getUserById(id: number) {
-    return this.http.get(API_BASE_URL + this.USER_BASE_URL + '/' + id);
+  //Add user
+  addUser(newUser: NewUser): Observable<User> {
+    return this.http.postUser(newUser);
   }
 
-  // Method to add a new user to the server
-  // Takes a user object parameter and returns an observable of the HTTP response
-  // postUser(user: User) {
-  //   return this.http.post(API_BASE_URL + this.USER_BASE_URL, user);
-  // }
-
-  // Method to delete a user by its ID from the server
-  // Takes an ID parameter and returns an observable of the HTTP response
-  deleteUser(id: number) {
-    return this.http.delete(API_BASE_URL + this.USER_BASE_URL + '/' + id);
+  // Update user
+  updateUser(updatedUser: User): void {
+    const index = this.users.findIndex((usr) => usr.id === updatedUser.id);
+    if (index != -1) this.users[index] = updatedUser;
   }
 
-  // Method to update an existing user on the server
-  // Takes a user object parameter and returns an observable of the HTTP response
-  // updateUser(user: User) {
-  //   return this.http.put(API_BASE_URL + this.USER_BASE_URL + '/'+user.id, user);
-  // }
+  // Delete user
+  deleteUser(userId: number): void {
+    this.users = this.users.filter((usr) => usr.id != userId);
+  }
 
-
+  getUserId(): number {
+    return parseInt(this.cookie.get('user_id'));
+  }
 }
